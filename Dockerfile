@@ -59,9 +59,9 @@ COPY ./composer.json /var/www/
 
 RUN mkdir -p /var/www/storage/framework /var/www/storage/framework/views /var/www/storage/framework/sessions /var/www/storage/framework/cache
 
-COPY ./docker/php/laravel.ini /etc/php/conf.d/laravel.ini
+# COPY ./docker/php/laravel.ini /etc/php/conf.d/laravel.ini
 
-COPY ./docker/nginx/nginx.conf /etc/nginx/nginx.conf
+COPY ./docker/nginx/nginx.conf /etc/nginx/conf.d/nginx.conf
 
 WORKDIR /var/www
 
