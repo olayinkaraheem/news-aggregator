@@ -12,9 +12,9 @@ class NewsApiAggregatorBySourceJob implements ShouldQueue
     /**
      * Create a new job instance.
      */
-    public function __construct(protected string $source, protected int $page = 1)
+    public function __construct(protected string $source, protected string $category, protected int $page = 1)
     {
-        //
+        // $this->category to be used when saving the content
     }
 
     /**

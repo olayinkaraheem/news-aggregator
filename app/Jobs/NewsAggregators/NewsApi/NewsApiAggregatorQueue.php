@@ -31,7 +31,7 @@ class NewsApiAggregatorQueue implements ShouldQueue
         // for each section
         // category = source['category']
         // source = source['id']
-        // NewsApiAggregatorBySourceJob::dispatch(source);
+        // NewsApiAggregatorBySourceJob::dispatch(source, category);
     }
     protected function fetchNewsApiAggregatorByCategory()
     {
