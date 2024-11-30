@@ -1,11 +1,11 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
+use App\Http\Middleware\CheckEmailIsVerified;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use App\Http\Middleware\AddAcceptApplicationJsonHeader;
-use Illuminate\Support\Facades\Route;
-use App\Http\Middleware\CheckEmailIsVerified;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(

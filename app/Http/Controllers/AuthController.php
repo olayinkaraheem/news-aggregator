@@ -67,6 +67,7 @@ class AuthController extends Controller
 
     public function requestPasswordReset(PasswordResetOtpRequest $request): JsonResponse
     {
+        dd((new \App\Helpers\Aggregator\NewsApiHelper)->getNews(filter_value: 'al-jazeera-english', filter_key: 'sources'));
         $this->authService->sendPasswordResetOtp($request->validated());
 
         return (new NewsAggregatorResponse(
