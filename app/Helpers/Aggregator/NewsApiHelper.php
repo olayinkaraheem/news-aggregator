@@ -37,6 +37,7 @@ class NewsApiHelper implements AggregatorInterface
             );
         } catch (\Exception $e) {
             Log::error('Error fetching news from NewsApi: '. $e->getMessage());
+            return [];
         }
 
         return $response['data'];
