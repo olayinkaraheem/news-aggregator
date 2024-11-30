@@ -2,8 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Enums\NewsProviderEnum;
-use App\Services\NewsAggregatorJobFactory;
+use App\Factories\NewsAggregatorJobFactory;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
@@ -24,6 +23,6 @@ class FetchNewsJob implements ShouldQueue
      */
     public function handle(): void
     {
-        NewsAggregatorJobFactory::make($this->provider)->fetchNews();
+        NewsAggregatorJobFactory::make($this->provider);
     }
 }

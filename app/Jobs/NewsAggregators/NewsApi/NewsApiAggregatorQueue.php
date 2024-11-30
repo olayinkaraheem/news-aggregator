@@ -28,14 +28,19 @@ class NewsApiAggregatorQueue implements ShouldQueue
 
     protected function fetchNewsApiAggregatorBySource()
     {
-        // for each section
-        // category = source['category']
-        // source = source['id']
-        // NewsApiAggregatorBySourceJob::dispatch(source, category);
+        $sources = config('data-sources.news-api-sources');
+
+        $sources_to_fetch = collect($sources)->random(5); // reduced to prevent rate limiting from provider. Update this to take more like 50
+
+        $sources_to_fetch->each(function ($source) {
+            NewsApiAggregatorBySourceJob::dispatch($source['category'], $source['id'])->delay(now()->addSeconds(5));
+        });
     }
     protected function fetchNewsApiAggregatorByCategory()
     {
-        // for each category
-        // NewsApiAggregatorByCategoryJob::dispatch(category);
+        $categories = config('data-sources.news-api-categories');
+        foreach ($categories as $category) {
+            NewsApiAggregatorByCategoryJob::dispatch($category)->delay(now()->addSeconds(5));
+        }
     }
 }

@@ -2,13 +2,15 @@
 
 namespace App\Jobs\NewsAggregators\NewsApi;
 
+use Illuminate\Support\Arr;
 use App\Helpers\Aggregator\NewsApiHelper;
+use App\Jobs\StoreNewsAggregateJob;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class NewsApiAggregatorByCategoryJob implements ShouldQueue
 {
-    use Queueable;
+    use Queueable, ResponseTransformerTrait;
 
     /**
      * Create a new job instance.
@@ -25,19 +27,18 @@ class NewsApiAggregatorByCategoryJob implements ShouldQueue
     {
         $response = (new NewsApiHelper)->getNews(filter_value: $this->category, page: $this->page);
 
-        $totalPages = !empty($response) ? (int) $response['totalResults'] : 0;
+        $totalPages = !empty($response) && Arr::has($response, 'totalResults') ? (int) $response['totalResults'] : 0;
 
         if (!$totalPages) {
             return;
         }
 
-        
-        // this calls itself recursively going through the pages until the last page
-        // on each iteration, performs a transform (maybe using a method here) and then
-        // call a CreateNewsAggregateAction class
+        $articles = $this->transformResponseFormat($response['articles']);
 
+        StoreNewsAggregateJob::dispatch($articles);
 
-
-        // call NewsApiHelper getNews(filter_value: $this->category, page: $this->page)
+        if ($this->page <= $totalPages) {
+            NewsApiAggregatorByCategoryJob::dispatch($this->category, $this->page + 1)->delay(now()->addSeconds(5));
+        }
     }
 }

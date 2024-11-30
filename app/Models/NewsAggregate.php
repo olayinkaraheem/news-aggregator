@@ -6,5 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class NewsAggregate extends Model
 {
-    //
+    protected $guarded = ['id'];
+
+    protected $casts = [
+        'published_date' => 'datetime',
+    ];
 }

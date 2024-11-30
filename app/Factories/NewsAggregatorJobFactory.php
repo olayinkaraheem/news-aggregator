@@ -1,18 +1,18 @@
 <?php
-namespace App\Services;
+namespace App\Factories;
 
 use Exception;
 use App\Enums\NewsProviderEnum;
-use App\Helpers\Aggregator\NewsApiHelper;
 use App\Helpers\Aggregator\AggregatorInterface;
+use App\Jobs\NewsAggregators\NewsApi\NewsApiAggregatorQueue;
 
 class NewsAggregatorJobFactory {
     protected function __construct(protected string $provider)
     {}
 
-    public static function make($provider): AggregatorInterface
+    public static function make($provider): void
     {
-        return (new self($provider))->getInstance();
+        (new self($provider))->getInstance();
     }
 
     /**
@@ -20,9 +20,9 @@ class NewsAggregatorJobFactory {
      * 
      * @return AggregatorInterface
      */
-    protected function getInstance(): AggregatorInterface
+    protected function getInstance(): void
     {
-        return match($this->provider) {
+        match($this->provider) {
             NewsProviderEnum::NEWSAPI->value => NewsApiAggregatorQueue::dispatch(),
             default => throw new Exception('Provider not supported yet.')
         };

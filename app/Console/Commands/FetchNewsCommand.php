@@ -13,7 +13,7 @@ class FetchNewsCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'app:fetch-news-command';
+    protected $signature = 'app:fetch-news';
 
     /**
      * The console command description.

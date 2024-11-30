@@ -3,12 +3,21 @@ namespace App\Jobs\NewsAggregators\NewsApi;
 
 trait ResponseTransformerTrait
 {
-    protected function transformResponse(array $response_data)
+    
+    protected function transformResponseFormat($articles): array
     {
-        return [
-            // transform keys here to meet requirements for CreateNewsAggregateAction
-        ];
-    }
-    // This trait can't be shared
-    // cos for source call, 
+        return collect($articles)->map(function ($article) {
+            return [
+                'title' => $article['title'],
+                'content' => $article['content'],
+                'url' => $article['url'],
+                'source' => $article['source']['name'],
+                'published_date' => $article['publishedAt'],
+                'image_url' => $article['urlToImage'],
+                'author' => $article['author'] ?? $article['source']['name'],
+                'category' => $this->category,
+                'description' => $article['description'] ?? null,
+            ];
+        })->toArray();
+    } 
 }
