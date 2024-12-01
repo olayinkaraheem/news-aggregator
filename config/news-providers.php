@@ -12,5 +12,15 @@ return [
             'everything' => 'everything',
             'sources' => 'sources'
         ]
+        ],
+    NewsProviderEnum::THE_GUARDIAN->value => [
+        'base_url' => env('THE_GUARDIAN_BASE_URL'),
+        'api_key' => env('THE_GUARDIAN_API_KEY'),
+        'page_size' => env('THE_GUARDIAN_API_PAGE_SIZE', 10),
+        'paths' => [
+            'search' => 'search',
+            'tags' => 'tags',
+            'sections' => 'sections'
+        ]
     ]
 ];

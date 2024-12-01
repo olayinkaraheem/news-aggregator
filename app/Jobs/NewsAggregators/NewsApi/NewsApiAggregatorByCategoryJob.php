@@ -42,10 +42,12 @@ class NewsApiAggregatorByCategoryJob implements ShouldQueue
 
         $articles = $this->transformResponseFormat($response['articles']);
 
+        $page = $this->page + 1;
+
         StoreNewsAggregateJob::dispatch($articles);
 
-        if ($this->page <= $totalPages) {
-            NewsApiAggregatorByCategoryJob::dispatch($this->category, $this->page + 1)->delay(now()->addSeconds(5));
+        if ($page <= $totalPages) {
+            NewsApiAggregatorByCategoryJob::dispatch($this->category, $page)->delay(now()->addSeconds(5));
         }
     }
 }
