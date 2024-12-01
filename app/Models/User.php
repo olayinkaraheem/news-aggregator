@@ -52,4 +52,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Otp::class);
     }
+
+    public function userPreference()
+    {
+        return $this->hasOne(UserPreference::class);
+    }
 }
