@@ -5,7 +5,7 @@ use Exception;
 use App\Enums\NewsProviderEnum;
 use App\Helpers\Aggregator\AggregatorInterface;
 use App\Jobs\NewsAggregators\NewsApi\NewsApiAggregatorQueue;
-use App\Jobs\NewsAggregators\TheGuadian\TheGuardianAggregatorQueue;
+use App\Jobs\NewsAggregators\TheGuardian\TheGuardianAggregatorQueue;
 
 class NewsAggregatorJobFactory {
     protected function __construct(protected string $provider)
