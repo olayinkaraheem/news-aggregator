@@ -32,11 +32,7 @@ class TheGuardianAggregatorJob implements ShouldQueue
     {
         $response = (new TheGuardianHelper)->getNews(filter_value: $this->category, page: $this->page);
 
-        dump('response: ', $response);
-
         $totalResults = !empty($response) && Arr::has($response, 'total') ? (int) $response['total'] : 0;
-
-        dump('totalResults: ', $totalResults);
 
         if (!$totalResults) {
             return;
@@ -45,8 +41,6 @@ class TheGuardianAggregatorJob implements ShouldQueue
         $totalPages = (int) ceil($totalResults / $response['pageSize']);
 
         $results = $this->transformResponseFormat($response['results']);
-
-        dump('results: ', $results);
 
         $page = $this->page + 1;
 
