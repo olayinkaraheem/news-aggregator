@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('news_aggregates', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('description')->nullable();
-            $table->string('image_url');
-            $table->string('url');
+            $table->longText('description')->nullable();
+            $table->longText('image_url')->nullable();
+            $table->longText('url');
             $table->longText('content');
             $table->string('category');
             $table->string('author')->nullable();

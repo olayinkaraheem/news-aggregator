@@ -24,7 +24,12 @@ class StoreNewsAggregateJob implements ShouldQueue
     public function handle(): void
     {
         collect($this->articles)
-            ->filter(fn($article) => $article['title'] != "[Removed]")
+            ->filter(fn($article) => !in_array($article['title'], $this->unwantedContents()) )
             ->each(fn($article) => (new CreateNewsAggregateAction)->handle($article));
+    }
+
+    protected function unwantedContents()
+    {
+        return ["[Removed]", null];
     }
 }
