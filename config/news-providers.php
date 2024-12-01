@@ -12,7 +12,7 @@ return [
             'everything' => 'everything',
             'sources' => 'sources'
         ]
-        ],
+    ],
     NewsProviderEnum::THE_GUARDIAN->value => [
         'base_url' => env('THE_GUARDIAN_BASE_URL'),
         'api_key' => env('THE_GUARDIAN_API_KEY'),
@@ -22,5 +22,12 @@ return [
             'tags' => 'tags',
             'sections' => 'sections'
         ]
-    ]
+    ],
+    NewsProviderEnum::NEW_YORK_TIMES->value => [
+        'base_url' => env('NEW_YORK_TIMES_BASE_URL'),
+        'api_key' => env('NEW_YORK_TIMES_API_KEY'),
+        'paths' => [
+            'category' => ':category.json',
+        ]
+    ],
 ];

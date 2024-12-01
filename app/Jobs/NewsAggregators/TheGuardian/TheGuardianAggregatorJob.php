@@ -58,13 +58,18 @@ class TheGuardianAggregatorJob implements ShouldQueue
                 'title' => $result['webTitle'],
                 'content' => $result['webTitle'],
                 'url' => $result['webUrl'],
-                'source' => $this->provider,
+                'source' => $this->getProviderReadableName(),
                 'published_date' => $result['webPublicationDate'],
                 'image_url' => '',
-                'author' => 'The Guardian',
+                'author' => $this->getProviderReadableName(),
                 'category' => $result['sectionName'],
                 'description' => null,
             ];
         })->toArray();
-    } 
+    }
+
+    protected function getProviderReadableName()
+    {
+        return ucwords(str_replace('_',' ', $this->provider));
+    }
 }
