@@ -5,6 +5,7 @@ use Exception;
 use App\Enums\NewsProviderEnum;
 use App\Helpers\Aggregator\AggregatorInterface;
 use App\Jobs\NewsAggregators\NewsApi\NewsApiAggregatorQueue;
+use App\Jobs\NewsAggregators\TheGuadian\TheGuardianAggregatorQueue;
 
 class NewsAggregatorJobFactory {
     protected function __construct(protected string $provider)
@@ -24,6 +25,7 @@ class NewsAggregatorJobFactory {
     {
         match($this->provider) {
             NewsProviderEnum::NEWSAPI->value => NewsApiAggregatorQueue::dispatch(),
+            NewsProviderEnum::THE_GUARDIAN->value => TheGuardianAggregatorQueue::dispatch(),
             default => throw new Exception('Provider not supported yet.')
         };
     }

@@ -71,7 +71,7 @@ RUN composer dump-autoload
 
 RUN chown -R www-data:www-data /var/www
 
-RUN chmod -R 755 /var/www/storage
+RUN chmod -R 775 /var/www/storage
 
 EXPOSE 80
 

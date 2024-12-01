@@ -4,7 +4,7 @@ namespace App\Jobs\NewsAggregators\NewsApi;
 trait ResponseTransformerTrait
 {
     
-    protected function transformResponseFormat($articles): array
+    protected function transformResponseFormat(array $articles): array
     {
         return collect($articles)->map(function ($article) {
             return [
