@@ -24,7 +24,7 @@ class TheGuardianHelper implements AggregatorInterface
     }
     public function getNews(string $filter_value, int $page = 1, string $filter_key = 'section'): array
     {
-        $mockResponse = [];
+        $mockResponse = app()->environment('testing') ? MockResponse::getTheGuardianMockResponse() : [];
         try {
             $response = (new NewsAggregatorRequest)->get(
                 "{$this->baseUrl}/{$this->path}?" . http_build_query([
@@ -42,10 +42,5 @@ class TheGuardianHelper implements AggregatorInterface
         }
 
         return $response['data']['response'];
-    }
-
-    public function getSources(): array
-    {
-        return [];
     }
 }

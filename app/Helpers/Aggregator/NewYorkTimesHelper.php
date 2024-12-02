@@ -22,7 +22,7 @@ class NewYorkTimesHelper implements AggregatorInterface
     }
     public function getNews(string $filter_value, int $page = 1): array
     {
-        $mockResponse = [];
+        $mockResponse = app()->environment('testing') ? MockResponse::getNewYorkTimesMockResponse() : [];
         try {
             $response = (new NewsAggregatorRequest)->get(
                 __("{$this->baseUrl}/{$this->path}?", ['category' => $filter_value]) . http_build_query([
@@ -38,10 +38,5 @@ class NewYorkTimesHelper implements AggregatorInterface
         Log::debug($response);
 
         return $response['data'];
-    }
-
-    public function getSources(): array
-    {
-        return [];
     }
 }

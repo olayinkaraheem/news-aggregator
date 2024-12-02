@@ -24,7 +24,7 @@ class NewsApiHelper implements AggregatorInterface
     }
     public function getNews(string $filter_value, int $page = 1, string $filter_key = 'category'): array
     {
-        $mockResponse = [];
+        $mockResponse = app()->environment('testing') ? MockResponse::getNewsApiMockResponse() : [];
         try {
             $response = (new NewsAggregatorRequest)->get(
                 "{$this->baseUrl}/{$this->path}?" . http_build_query([
@@ -41,10 +41,5 @@ class NewsApiHelper implements AggregatorInterface
         }
 
         return $response['data'];
-    }
-
-    public function getSources(): array
-    {
-        return [];
     }
 }
