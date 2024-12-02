@@ -37,4 +37,4 @@ $ php artisan test
 ```
 
 #
-Note: The application is integrated to The Guardian API, New York Times and NewsApi.Currently the application gets news updates via a schedule that runs every 6 hours a day.
+Note: The application is integrated to The Guardian API, New York Times and NewsApi. Currently the application gets news updates via a schedule that runs every 6 hours a day.
