@@ -28,5 +28,7 @@ class FetchNewsCommand extends Command
     public function __invoke()
     {
         collect(NewsProviderEnum::valueArray())->each(fn($provider) => FetchNewsJob::dispatch($provider));
+
+        return 0;
     }
 }
