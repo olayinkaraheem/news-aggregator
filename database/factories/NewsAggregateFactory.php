@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\NewsProviderEnum;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -24,8 +25,13 @@ class NewsAggregateFactory extends Factory
             'content' => $this->faker->paragraphs(3, true),
             'category' => $this->faker->word,
             'author' => $this->faker->name,
-            'source' => $this->faker->company,
+            'source' => $this->getRandomNewsSource(),
             'published_date' => $this->faker->dateTimeBetween('-2 weeks', 'now'),
         ];
+    }
+
+    protected function getRandomNewsSource()
+    {
+        return ucwords(str_replace('_', ' ', NewsProviderEnum::valueArray()[rand(0, count(NewsProviderEnum::valueArray()) - 1)]));
     }
 }

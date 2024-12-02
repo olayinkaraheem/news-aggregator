@@ -13,6 +13,8 @@ class NewsAggregateSeeder extends Seeder
      */
     public function run(): void
     {
-        NewsAggregate::factory(10)->create();
+        if(!NewsAggregate::count()){
+            NewsAggregate::factory(100)->create();
+        }
     }
 }
