@@ -13,6 +13,11 @@ class NewYorkTimesHelper implements AggregatorInterface
     protected string $apiKey;
     protected string $baseUrl;
 
+    /**
+     * Constructor for NewYorkTimesHelper.
+     *
+     * @param string $provider The news provider to use (default: NewsProviderEnum::NEW_YORK_TIMES->value)
+     */
     public function __construct(protected string $provider = NewsProviderEnum::NEW_YORK_TIMES->value)
     {
         $provider_config = config('news-providers.' . $this->provider);
@@ -20,6 +25,12 @@ class NewYorkTimesHelper implements AggregatorInterface
         $this->apiKey = $provider_config['api_key'];
         $this->baseUrl = $provider_config['base_url'];
     }
+
+    /**
+     * Get news from the New York Times.
+     *
+     * @param string $filter_value The value to filter the news by (e.g., 'sports', 'business')
+     */
     public function getNews(string $filter_value, int $page = 1): array
     {
         $mockResponse = app()->environment('testing') ? MockResponse::getNewYorkTimesMockResponse() : [];

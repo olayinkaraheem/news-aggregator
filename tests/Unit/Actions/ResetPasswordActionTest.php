@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
 
-test('CreateUserAction class works as expected', function () {
+test('ResetPasswordAction class works as expected', function () {
     $user = User::factory()->create();
     
     $result = (new ResetPasswordAction())->handle(['user' => $user, 'password' => 'newpassword']);

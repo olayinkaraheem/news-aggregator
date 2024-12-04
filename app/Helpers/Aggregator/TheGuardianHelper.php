@@ -14,6 +14,11 @@ class TheGuardianHelper implements AggregatorInterface
     protected string $baseUrl;
     protected int $pageSize;
 
+    /**
+     * Constructor for TheGuardianHelper.
+     *
+     * @param string $provider The news provider to use (default: NewsProviderEnum::THE_GUARDIAN->value)
+     */
     public function __construct(protected string $provider = NewsProviderEnum::THE_GUARDIAN->value)
     {
         $provider_config = config('news-providers.' . $this->provider);
@@ -22,6 +27,12 @@ class TheGuardianHelper implements AggregatorInterface
         $this->baseUrl = $provider_config['base_url'];
         $this->pageSize = (int) $provider_config['page_size'];
     }
+
+    /**
+     * Get news from The Guardian.
+     *
+     * @param string $filter_value The value to filter the news by (e.g., 'sports', 'business')
+     */
     public function getNews(string $filter_value, int $page = 1, string $filter_key = 'section'): array
     {
         $mockResponse = app()->environment('testing') ? MockResponse::getTheGuardianMockResponse() : [];
@@ -37,7 +48,7 @@ class TheGuardianHelper implements AggregatorInterface
                 mockResponse: $mockResponse
             );
         } catch (\Exception $e) {
-            Log::error('Error fetching news from TheGuardian news: '. $e->getMessage());
+            Log::error('Error fetching news from TheGuardian news: ' . $e->getMessage());
             return [];
         }
 

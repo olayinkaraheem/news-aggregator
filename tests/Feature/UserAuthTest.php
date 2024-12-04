@@ -112,6 +112,7 @@ test('user can login with valid credentials', function () {
             "meta"
         ]);
 })->group('auth');
+
 test('user cannot login with wrong credentials', function () {
     $user = User::factory()->create([
         'password' => Hash::make('password123'),
@@ -162,7 +163,8 @@ test('user can logout of the application', function () {
 
     $this->assertDatabaseMissing('personal_access_tokens', ['tokenable_id' => $user->id]);
 })->group('auth');
-test('logout user cannot access protected route', function () {
+
+test('logged out user cannot access protected route', function () {
 
     $response = $this->getJson('/api/v1/news');
 
@@ -184,7 +186,6 @@ test('user must verify email before accessing protected route', function () {
             "message" => "Email address not verified."
         ]);
 })->group('auth');
-
 
 test('user can request request verification otp', function () {
     Notification::fake();
