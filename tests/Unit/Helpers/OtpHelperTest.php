@@ -20,7 +20,7 @@ test("if exist method works correctly", function () {
             ->handle(Otp::factory()->create())
             ->exist()
     );
-});
+})->group('otp-helper');
 
 test("if isExpired method works correctly", function () {
     $this->assertFalse(
@@ -36,7 +36,7 @@ test("if isExpired method works correctly", function () {
             ]))
             ->isExpired()
     );
-});
+})->group('otp-helper');
 
 test("if isValid method works correctly", function () {
     $plainCode = $this->faker->unique()->numberBetween(1000000, 9999999);
@@ -58,10 +58,10 @@ test("if isValid method works correctly", function () {
             ->handle($otp)
             ->isValid($plainCode)
     );
-});
+})->group('otp-helper');
 
 test("if generateCode method works correctly", function () {
     $code = (new OtpHelper)->generateCode();
 
     $this->assertTrue(Hash::check($code['plain_text'], $code['hashed']));
-});
+})->group('otp-helper');

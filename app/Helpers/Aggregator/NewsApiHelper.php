@@ -14,6 +14,11 @@ class NewsApiHelper implements AggregatorInterface
     protected string $baseUrl;
     protected int $pageSize;
 
+    /**
+     * Constructor for NewsApiHelper.
+     *
+     * @param string $provider The news provider to use (default: NewsProviderEnum::NEWSAPI->value)
+     */
     public function __construct(protected string $provider = NewsProviderEnum::NEWSAPI->value)
     {
         $provider_config = config('news-providers.' . $this->provider);
@@ -22,6 +27,12 @@ class NewsApiHelper implements AggregatorInterface
         $this->baseUrl = $provider_config['base_url'];
         $this->pageSize = (int) $provider_config['page_size'];
     }
+
+    /**
+     * Get news from the NewsApi.
+     *
+     * @param string $filter_value The value to filter the news by (e.g., 'sports', 'business')
+     */
     public function getNews(string $filter_value, int $page = 1, string $filter_key = 'category'): array
     {
         $mockResponse = app()->environment('testing') ? MockResponse::getNewsApiMockResponse() : [];
@@ -36,7 +47,7 @@ class NewsApiHelper implements AggregatorInterface
                 mockResponse: $mockResponse
             );
         } catch (\Exception $e) {
-            Log::error('Error fetching news from NewsApi: '. $e->getMessage());
+            Log::error('Error fetching news from NewsApi: ' . $e->getMessage());
             return [];
         }
 

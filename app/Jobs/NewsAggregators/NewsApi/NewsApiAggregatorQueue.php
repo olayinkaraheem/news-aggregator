@@ -36,6 +36,7 @@ class NewsApiAggregatorQueue implements ShouldQueue
             NewsApiAggregatorBySourceJob::dispatch($source['category'], $source['id'])->delay(now()->addSeconds(5));
         });
     }
+
     protected function fetchNewsApiAggregatorByCategory()
     {
         $categories = config('data-sources.news-api-categories');

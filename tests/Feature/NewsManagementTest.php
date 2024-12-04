@@ -89,7 +89,7 @@ test('all news are fetched successfully and are paginated', function () {
         ]);
     $this->assertEquals(20, $response->json('meta.total'));
     $this->assertEquals($response->json('meta.per_page'), count($response->json('data')));
-})->group('new-management');
+})->group('news-management');
 
 test('user can view a single news item', function () {
     $news_aggregate = NewsAggregate::factory()->create();
@@ -110,4 +110,4 @@ test('user can view a single news item', function () {
             ],
             'message'
         ]);
-});
+})->group('news-management');
