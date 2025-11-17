@@ -1,19 +1,9 @@
 <?php
 
-use App\Models\Otp;
 use App\Models\User;
 use Laravel\Sanctum\Sanctum;
-use App\Helpers\Model\OtpHelper;
 use App\Models\NewsAggregate;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Validator;
-
-use Illuminate\Support\Facades\Notification;
-use App\Notifications\WelcomeUserNotification;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\Notifications\EmailVerificationOtpNotification;
-use App\Notifications\SendPasswordResetOtpNotification;
 
 uses(RefreshDatabase::class);
 
@@ -53,7 +43,7 @@ foreach ($dataset as $value) {
 }
 
 test('all news are fetched successfully and are paginated', function () {
-    $news_aggregates = NewsAggregate::factory(20)->create();
+    NewsAggregate::factory(20)->create();
 
     $response = $this->getJson('/api/v1/news');
 

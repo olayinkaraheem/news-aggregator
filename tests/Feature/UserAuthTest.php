@@ -5,9 +5,6 @@ use App\Models\User;
 use Laravel\Sanctum\Sanctum;
 use App\Helpers\Model\OtpHelper;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Validator;
-
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\WelcomeUserNotification;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -279,6 +276,28 @@ test('user can request password reset OTP', function() {
     $response->assertStatus(200);
 
     Notification::assertSentTo([$user], SendPasswordResetOtpNotification::class);
+})->group('auth');
+
+test('user cannot request verification otp with invalid email', function () {
+    Notification::fake();
+    User::factory()->create();
+
+    $data = [
+        'email' => 'invalid_email@mail.com',
+    ];
+
+    $response = $this->postJson('/api/v1/auth/send-email-verification-otp', $data);
+
+    $response->assertStatus(422)
+        ->assertJsonStructure([
+            "message",
+            "errors" => [
+                "email"
+            ]
+        ])
+        ->assertJson([
+            "message" => "The selected email is invalid."
+        ]);
 })->group('auth');
 
 test('user can reset password', function () {

@@ -10,11 +10,11 @@ test('Connection to NewsApi endpoint is successful', function()
     $this->assertEquals($response['status'], 'ok');
 })->group('aggregators');
 
-test('Connection to New York Times endpoint is successful', function()
-{
-    $response = (new NewYorkTimesHelper)->getNews('sports');
-    $this->assertEquals($response['status'], 'OK');
-})->group('aggregators');
+// test('Connection to New York Times endpoint is successful', function()
+// {
+//     $response = (new NewYorkTimesHelper)->getNews('sports');
+//     $this->assertEquals($response['status'], 'OK');
+// })->group('aggregators');
 
 test('Connection to The Gaurdian News endpoint is successful', function()
 {

@@ -7,7 +7,6 @@ use Illuminate\Http\JsonResponse;
 class NewsAggregatorResponse
 {
     const OK = 200;
-    const CREATED = 201;
     const UPDATED = 202;
     const BAD_REQUEST = 400;
     const UNAUTHORIZED = 401;
@@ -33,11 +32,6 @@ class NewsAggregatorResponse
     public function asBadRequest() : JsonResponse
     {
         return $this->responseArray(self::BAD_REQUEST);
-    }
-
-    public function asCreated() : JsonResponse
-    {
-        return $this->responseArray(self::CREATED);
     }
 
     public function asUpdated() : JsonResponse

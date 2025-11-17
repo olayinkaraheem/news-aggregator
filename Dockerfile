@@ -9,6 +9,8 @@ RUN curl -s -f -L -o /tmp/dockerize.tar.gz https://github.com/jwilder/dockerize/
 
 # Install Composer
 ENV COMPOSER_VERSION 2.7.7
+ENV XDEBUG_MODE=coverage
+ENV XDEBUG_CONFIG="client_host=host.docker.internal"
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=$COMPOSER_VERSION
 
@@ -34,6 +36,7 @@ RUN apt-get update \
         git \
     && apt-get clean \
     && pecl install redis \
+    && pecl install xdebug \
     && docker-php-ext-configure gd \
     && docker-php-ext-configure zip \
     && docker-php-ext-install \
@@ -48,6 +51,7 @@ RUN apt-get update \
         gmp \
         bcmath \
     && docker-php-ext-enable redis \
+    && docker-php-ext-enable xdebug \
     && rm -rf /var/lib/apt/lists/*;
 
 RUN apt-get update \
@@ -55,7 +59,7 @@ RUN apt-get update \
 
 COPY ./composer.json /var/www/
 
-# RUN --mount=type=secret,id=composer_auth,dst=/var/www/auth.json composer install --working-dir=/var/www --no-scripts
+RUN composer install --working-dir=/var/www --no-scripts
 
 RUN mkdir -p /var/www/storage/framework /var/www/storage/framework/views /var/www/storage/framework/sessions /var/www/storage/framework/cache
 

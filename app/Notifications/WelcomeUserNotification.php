@@ -44,17 +44,4 @@ class WelcomeUserNotification extends Notification implements ShouldQueue
             ['data' => $this->data]
         )->subject('Welcome');
     }
-
-    /**
-     * Get the array representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
-    public function toArray($notifiable)
-    {
-        return [
-            //
-        ];
-    }
 }

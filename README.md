@@ -14,6 +14,16 @@ $ docker pull mysql
 $ docker run --name mysql -e MYSQL_ROOT_PASSWORD=password -d mysql:tag
 ```
 - Setup .env file with required environment variables. Check .env.example
+```
+$ cp .env.example .env
+```
+
+- Get news providers api keys from the following sources
+```
+- The Guardian: https://open-platform.theguardian.com/access/
+- New York Times: https://developer.nytimes.com/
+- NewsApi: https://newsapi.org/
+```
 
 - Run the project
 ```
