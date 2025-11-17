@@ -4,7 +4,7 @@ namespace App\Enums;
 
 enum NewsProviderEnum: string
 {
-    use PHP8BaseEnum;
+    use BaseEnum;
 
     case THE_GUARDIAN = 'the_guardian';
     case NEWSAPI = 'newsapi';

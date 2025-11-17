@@ -28,26 +28,4 @@ class NewsAggregatorRequest
             'data'      => $data
         ];
     }
-
-    public static function post( string $url, array $request, array $headers = [], ?string $provider = null, ?array $mockResponse = [] ) : array
-    {
-        if (!empty($mockResponse)) {
-            return $mockResponse;
-        }
-        
-        $start = time();
-
-        $response = Http::withHeaders( $headers )->post( $url, $request );
-
-        $data = $response->json();
-
-        $end = time();
-
-        Log::debug([$url, $request, $end - $start, $provider, $response]);
-
-        return [
-            'status'    => $response->status(),
-            'data'      => $data
-        ];
-    }
 }

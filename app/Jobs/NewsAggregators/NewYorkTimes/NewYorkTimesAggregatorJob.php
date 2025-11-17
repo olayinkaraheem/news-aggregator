@@ -62,4 +62,9 @@ class NewYorkTimesAggregatorJob implements ShouldQueue
     {
         return ucwords(str_replace('_', ' ', $this->provider));
     }
+
+    public function getCategory()
+    {
+        return $this->category;
+    }
 }
